@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Para Narita 💖</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive;
+            background: linear-gradient(to right, #ffe6f0, #ccf2ff);
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            margin-top: 50px;
+            font-size: 35px;
+            color: #e91e63;
+        }
+
+        .corazon {
+            font-size: 40px;
+            color: #ff69b4;
+            animation: latiendo 1s infinite alternate;
+        }
+
+        @keyframes latiendo {
+            from { transform: scale(1); }
+            to { transform: scale(1.2); }
+        }
+
+        .frases {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #c2185b;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        button {
+            background: linear-gradient(to right, #ff8a80, #ff4081);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .mensaje, .gif-sorpresa {
+            display: none;
+            margin-top: 30px;
+            font-size: 22px;
+            color: #880e4f;
+        }
+
+        .gif-sorpresa img {
+            max-width: 300px;
+            margin-top: 15px;
+            border-radius: 15px;
+        }
+
+        .firma {
+            margin-top: 40px;
+            font-size: 24px;
+            color: #6a1b9a;
+            font-weight: bold;
+        }
+
+        .fondo-corazones {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .corazon-animado {
+            position: absolute;
+            color: #f06292;
+            font-size: 24px;
+            animation: flotar 8s linear infinite;
+        }
+
+        @keyframes flotar {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            30% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="fondo-corazones" id="fondo"></div>
+
+    <h1>🌸 Para la niña más linda: Narita 🌸</h1>
+    <p class="corazon">❤️❤️❤️</p>
+
+    <div class="frases" id="frases"></div>
+
+    <audio autoplay loop>
+        <source src="https://www.dropbox.com/scl/fi/3aoi3nbbi4xk3gtwv5e3a/Jard-n-con-enanitos.mp3?rlkey=cmj6vfrp2pb2k9v8l6jxjrska&raw=1" type="audio/mpeg">
+        Tu navegador no soporta audio 💔
+    </audio>
+
+    <audio id="clickSound">
+        <source src="https://www.myinstants.com/media/sounds/magic.mp3" type="audio/mpeg">
+    </audio>
+
+    <button onclick="mostrarSorpresa()">Haz clic para tu sorpresa 💝</button>
+    <div class="mensaje" id="mensaje">
+        🌹 Eres mi jardín favorito lleno de enanitos de amor 🌹 <br>
+        Gracias por existir, mi vida 💕
+    </div>
+
+    <!-- BOTONES SORPRESA -->
+    <button onclick="mostrarGif('💌 No dejo de pensar en ti 😍', 'https://media.giphy.com/media/3oz8xKaR836UJOYeOc/giphy.gif')">💌 Te pienso</button>
+    <button onclick="mostrarGif('🐻 Aquí va un abracito virtual ❤️', 'https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif')">🤗 Te abrazo</button>
+    <button onclick="mostrarGif('🐱 Mimitos para ti mi amor 😽', 'https://media.giphy.com/media/12VXIxKaIEarL2/giphy.gif')">🐱 Te mimo</button>
+
+    <div class="gif-sorpresa" id="gif-container">
+        <p id="gif-texto"></p>
+        <img id="gif-img" src="" alt="Sorpresa para Narita 💖">
+    </div>
+
+    <div class="firma">
+        Hecho con amor por tu amorcito Felipe 💘
+    </div>
+
+    <script>
+        const frases = [
+            "Tu sonrisa ilumina mis días ☀️",
+            "Tus abrazos son mi lugar favorito 🫂",
+            "Contigo todo es más bonito ✨",
+            "Eres mi canción favorita 🎶",
+        ];
+
+        let i = 0;
+        const frasesDiv = document.getElementById("frases");
+
+        function mostrarFrases() {
+            if (i < frases.length) {
+                const p = document.createElement("p");
+                p.textContent = frases[i];
+                frasesDiv.appendChild(p);
+                i++;
+                setTimeout(mostrarFrases, 2500);
+            }
+        }
+
+        mostrarFrases();
+
+        function mostrarSorpresa() {
+            document.getElementById("mensaje").style.display = "block";
+            document.getElementById("clickSound").play();
+        }
+
+        function mostrarGif(texto, url) {
+            const gifCont = document.getElementById("gif-container");
+            const gifTexto = document.getElementById("gif-texto");
+            const gifImg = document.getElementById("gif-img");
+
+            gifTexto.innerText = texto;
+            gifImg.src = url;
+            gifCont.style.display = "block";
+        }
+
+        // corazones flotantes
+        const fondo = document.getElementById("fondo");
+        for (let j = 0; j < 30; j++) {
+            const corazon = document.createElement("div");
+            corazon.classList.add("corazon-animado");
+            corazon.style.left = Math.random() * 100 + "vw";
+            corazon.style.top = Math.random() * 100 + "vh";
+            corazon.textContent = "💗";
+            corazon.style.animationDuration = (5 + Math.random() * 5) + "s";
+            fondo.appendChild(corazon);
+        }
+    </script>
+</body>
+</html>s
